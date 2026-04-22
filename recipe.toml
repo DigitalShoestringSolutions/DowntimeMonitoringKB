@@ -98,7 +98,7 @@ recipe_vsn = "1.0.0"
 
 [source.analysis]
     git.path = "sm_analysis"
-    git.tag = "v0.2.2"
+    git.tag = "v0.2.3"
 
 [source.mqtt_broker]
     git.path = "sm_mqtt_broker"

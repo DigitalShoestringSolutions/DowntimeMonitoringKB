@@ -14,6 +14,7 @@ import datetime
 from trigger.engine import TriggerEngine
 import config_manager
 import paho.mqtt.publish as pahopublish
+import output.kinabase
 import json
 import time
 import sys
@@ -44,7 +45,7 @@ OldRunningVal = None # value (bool) will be added after first comparision
 OldRunningTime = "2021-01-01T00:00:00+00:00" # timestamp when status was last published. Default to a time in the past that will parse
 
 # Load config - outside of function
-#broker = config["sensor"]["broker"]  # not needed here - input_broker is passed directly to MQTTTrigger via trigger.engine.mqtt ...
+# broker = config["sensor"]["broker"]  # not needed here - input_broker is passed directly to MQTTTrigger via trigger.engine.mqtt ...
 topic = config["sensor"]["topic"]
 parameter_name = config["thresholds"]["parameter"]
 threshold = float(config["thresholds"]["value"])
@@ -102,20 +103,29 @@ async def thresholds(topic, payload, config={}):
         else:
             topic = topic + '/stop'
 
-
         # Publish to MQTT
         logger.debug(f"Publishing machine {machine} RunningVal {Running} to mqtt.docker.local topic: {target}")
         pahopublish.single(topic=topic, payload=json.dumps(output_payload), hostname="mqtt.docker.local", retain=True)
         logger.debug(f"publication to mqtt.docker.local complete")
 
-
     else:
         logger.debug(f"RunningVal {Running} for machine {machine} unchanged, not publishing")
-
 
     # Save result for next time
     OldRunningVal = Running
     OldRunningTime = timestamp
+
+
+@trigger.mqtt.event("downtime/event/+/+")
+async def handle_downtime_new_state(topic, payload, config={}):
+    logger.info(f"Received downtime new state message: {topic} {payload}")
+    await output.kinabase.update_record(
+        config,
+        fields={"running": "running"},
+        collection_id="machines",
+        kb_pk_field="downtimeId",
+        data_pk_field="machine",
+    )(payload)
 
 
 # Start the trigger engine and its scheduler/event loops

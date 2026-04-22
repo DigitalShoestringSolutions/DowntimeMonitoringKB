@@ -51,6 +51,20 @@
     prompt="UUID of the machine to create downtime events on. Get this from the admin page when the downtime monitoring solution is running."
 
 
+[Q.kinabase_collection_id]
+  criteria = "enabled=true"
+type="text"
+prompt="Kinabase collection id"
+
+[Q.kinabase_app_id]
+  criteria = "enabled=true"
+type="text"
+prompt="Kinabase App ID"
+
+[Q.kinabase_secret]
+  criteria = "enabled=true"
+type="text"
+prompt="Kinabase Secret"
 
 [OUT.module_enabled_out]
   var = "enabled"
@@ -69,6 +83,16 @@ var="thresh"
 
 [OUT.machine_uuid]
 var = "machine_id"
+
+
+[OUT.kinabase_secret]
+var="kinabase_secret"
+
+[OUT.kinabase_app_id]
+var="kinabase_app_id"
+
+[OUT.kinabase_collection_id]
+var="kinabase_collection_id"
 
 # Note: The following lines are examples of how to reference the answers in the user configuration template.
 # For example, in user_config.toml, you can use {{machine_name}} to insert the machine name provided by the user.
