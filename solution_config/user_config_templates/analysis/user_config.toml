@@ -22,7 +22,7 @@ target = "{{machine_uuid}}"
 # Always output to broker mqtt.docker.local, not configurable
 
 [kinabase]
-    base_url = "https://beta.kinabase.com/api/v1"
+    base_url = "https://app.kinabase.com/api/v1"
     collection_id="{{kinabase_collection_id}}"
     app_id="{{kinabase_app_id}}"
     secret="{{kinabase_secret}}"
