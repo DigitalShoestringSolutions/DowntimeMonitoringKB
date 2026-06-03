@@ -115,18 +115,5 @@ async def thresholds(topic, payload, config={}):
     OldRunningVal = Running
     OldRunningTime = timestamp
 
-
-@trigger.mqtt.event("downtime/event/+/+")
-async def handle_downtime_new_state(topic, payload, config={}):
-    logger.info(f"Received downtime new state message: {topic} {payload}")
-    await output.kinabase.update_record(
-        config,
-        fields={"running": "running"},
-        collection_id="machines",
-        kb_pk_field="downtimeId",
-        data_pk_field="machine",
-    )(payload)
-
-
 # Start the trigger engine and its scheduler/event loops
 trigger.start()

@@ -36,6 +36,12 @@ recipe_vsn = "1.0.0"
 #     ports.analysis-sm.api = 10000
 #     template.log_level = "info"
 
+[service_module.uplink]
+    source = "analysis-uplink"
+    containers = ["analysis-sm"]
+    ports.analysis-sm.api = 8000
+    template.log_level = "info"
+
 [service_module.db]
     source = "data_storage"
     containers = ["db"]
@@ -97,6 +103,10 @@ recipe_vsn = "1.0.0"
     git.tag = "v1.0.0"
 
 [source.analysis]
+    git.path = "sm_analysis"
+    git.tag = "v0.2.3"
+
+[source.analysis-uplink]
     git.path = "sm_analysis"
     git.tag = "v0.2.3"
 

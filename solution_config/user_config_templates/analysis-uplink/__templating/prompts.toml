@@ -25,48 +25,32 @@
   type = "bool"
   prompt = "Enable analysis module?"
 
-[Q.sensorbroker]
+[Q.kinabase_collection_id]
   criteria = "enabled=true"
-    type="text"
-    prompt="MQTT broker name / IP address of where the sensor data can be found."
+type="text"
+prompt="Kinabase collection id"
 
-[Q.sensortopic]
+[Q.kinabase_app_id]
   criteria = "enabled=true"
-    type="text"
-    prompt="MQTT topic containing the sensor data. Typically includes the machine name."
+type="text"
+prompt="Kinabase App ID"
 
-[Q.param]
+[Q.kinabase_secret]
   criteria = "enabled=true"
-    type="text"
-    prompt="Parameter in the MQTT message containing the numerical data to compare to the threshold."
-
-[Q.thresh]
-  criteria = "enabled=true"
-    type="text"
-    prompt="Threshold value. Above this, the machine is running."
-
-[Q.machine_id]
-  criteria = "enabled=true"
-    type="text"
-    prompt="UUID of the machine to create downtime events on. Get this from the admin page when the downtime monitoring solution is running."
+type="text"
+prompt="Kinabase Secret"
 
 [OUT.module_enabled_out]
   var = "enabled"
 
-[OUT.sensor_broker]
-var="sensorbroker"
+[OUT.kinabase_secret]
+var="kinabase_secret"
 
-[OUT.sensor_mqtt_topic]
-var="sensortopic"
+[OUT.kinabase_app_id]
+var="kinabase_app_id"
 
-[OUT.mqtt_payload_json_key]
-var="param"
-
-[OUT.threshold_value]
-var="thresh"
-
-[OUT.machine_uuid]
-var = "machine_id"
+[OUT.kinabase_collection_id]
+var="kinabase_collection_id"
 
 # Note: The following lines are examples of how to reference the answers in the user configuration template.
 # For example, in user_config.toml, you can use {{machine_name}} to insert the machine name provided by the user.
