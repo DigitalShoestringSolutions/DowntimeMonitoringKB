@@ -39,7 +39,7 @@ recipe_vsn = "1.0.0"
 [service_module.uplink]
     source = "analysis-uplink"
     containers = ["analysis-sm"]
-    ports.analysis-sm.api = 8000
+    ports.analysis-sm.api = 8100
     template.log_level = "info"
 
 [service_module.db]
